@@ -4,6 +4,7 @@ import es.unex.practicaparejas.BD.DAO.DireccionesDAO;
 import es.unex.practicaparejas.BD.Modelos.Direcciones;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,7 +23,12 @@ public class TabDirecciones {
     @FXML
     protected void onDireccionesInsert() {
         String denominacion = direcciones_denominacion_insert.getText();
-        DireccionesDAO.insertDireccion(denominacion);
+        if (denominacion.equals("")){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Inserte una dirección para poder guardar.");
+            alert.showAndWait();
+        } else{
+            DireccionesDAO.insertDireccion(denominacion);
+        }
 
         // Repopulate the table with updated data
         direccionesTableView.setItems(DireccionesDAO.getAllDirecciones());

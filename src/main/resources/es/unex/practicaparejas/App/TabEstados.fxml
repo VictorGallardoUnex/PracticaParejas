@@ -22,7 +22,7 @@
                                         </VBox.margin>
                                     </Label>
                                     <TextField fx:id="denominacionInput" promptText="Introduzca la denominación" />
-                                    <Button fx:id="estados_denominacion_Insert" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
+                                    <Button mnemonicParsing="false" onAction="#estados_denominacion_Insert" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
                                         <VBox.margin>
                                             <Insets top="20.0" />
                                         </VBox.margin>
@@ -32,7 +32,7 @@
                                     <Insets top="5.0" />
                                 </padding>
                             </VBox>
-                            <TableView fx:id="estados_denominacion_TableView" prefHeight="347.0" prefWidth="465.0">
+                            <TableView fx:id="estadosTableView" prefHeight="347.0" prefWidth="465.0">
                                 <columns>
                                     <TableColumn fx:id="id" prefWidth="102.0" text="ID ESTADOS" />
                                     <TableColumn fx:id="denominacionColumn" prefWidth="126.0" text="DENOMINACION" />

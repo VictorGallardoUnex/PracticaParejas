@@ -13,7 +13,7 @@ public class Estado {
         this.denominacion = denominacion;
     }
 
-    public int getIdEstado() {
+    public int getId() {
         return idEstado;
     }
 

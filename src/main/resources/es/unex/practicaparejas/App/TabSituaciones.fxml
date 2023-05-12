@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="es.unex.practicaparejas.App.Controladores.TabSituaciones"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.unex.practicaparejas.App.Controladores.TabSituaciones">
         <children>
             <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
                 <children>
                     <VBox prefHeight="277.0" prefWidth="163.0">
                         <children>
                             <Label prefHeight="27.0" prefWidth="59.0" text="Dato 1" />
-                            <TextField text="introduce dato 3" />
+                  <ComboBox fx:id="estadoComboBox" prefHeight="25.0" prefWidth="163.0" />
                             <Label prefHeight="25.0" prefWidth="53.0" text="Dato 2">
                                 <VBox.margin>
                                     <Insets />
                                 </VBox.margin>
                             </Label>
-                            <TextField text="introduce dato 2" />
-                            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
-                                <VBox.margin>
-                                    <Insets top="20.0" />
-                                </VBox.margin>
-                            </Button>
+                  <ComboBox prefHeight="25.0" prefWidth="163.0" />
+                  <Label prefHeight="25.0" prefWidth="53.0" text="Dato 2" />
+                  <Label prefHeight="26.0" prefWidth="163.0" text="Dato 2" />
+                  <DatePicker fx:id="datepicker" />
                         </children>
                         <padding>
                             <Insets top="5.0" />

@@ -20,12 +20,15 @@ public class MainApp extends Application {
         tab_Direcciones.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabDirecciones.fxml"))));
         Tab tab_Estados = new Tab("Estados");
         tab_Estados.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabEstados.fxml"))));
+        Tab tab_Situaciones = new Tab("Situaciones");
+        tab_Situaciones.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabSituaciones.fxml"))));
+
 
 //        Tab tab2 = new Tab("Tab 2");
 //        tab2.setContent(FXMLLoader.load(getClass().getResource("Tab2.fxml")));
 
         // Add the tabs to the tab pane
-        tabPane.getTabs().addAll(tab_Direcciones,tab_Estados);
+        tabPane.getTabs().addAll(tab_Direcciones,tab_Estados,tab_Situaciones);
 
         // Create a scene using the tab pane
         Scene scene = new Scene(tabPane, 600, 400);
