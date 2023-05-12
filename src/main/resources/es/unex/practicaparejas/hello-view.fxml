@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.unex.practicaparejas.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <Label prefHeight="38.0" prefWidth="75.0" text="Gestor de BD" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="DIRECCIONES">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+                                    <children>
+                                        <VBox prefHeight="277.0" prefWidth="163.0">
+                                            <children>
+                                                <Label prefHeight="27.0" prefWidth="164.0" text="Denominacion" />
+                                                <TextField fx:id="direcciones_denominacion_insert" text="introduce dato 3" />
+                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Introducir datos">
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </VBox>
+                                        <TableView fx:id="direccionesTableView" prefHeight="347.0" prefWidth="465.0">
+                                            <columns>
+                                                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                                                <TableColumn fx:id="denominacionColumn" prefWidth="75.0" text="Direcciones" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="SERVICIOS">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+                                    <children>
+                                        <VBox prefHeight="277.0" prefWidth="163.0">
+                                            <children>
+                                                <Label prefHeight="27.0" prefWidth="59.0" text="Dato 1" />
+                                                <TextField text="introduce dato 3" />
+                                                <Label prefHeight="25.0" prefWidth="53.0" text="Dato 2">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField text="introduce dato 2" />
+                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </VBox>
+                                        <TableView prefHeight="347.0" prefWidth="465.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Columna 1" />
+                                                <TableColumn prefWidth="75.0" text="Columna 2" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="PROYECTOS">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+                                    <children>
+                                        <VBox prefHeight="277.0" prefWidth="163.0">
+                                            <children>
+                                                <Label prefHeight="27.0" prefWidth="59.0" text="Dato 1" />
+                                                <TextField text="introduce dato 3" />
+                                                <Label prefHeight="25.0" prefWidth="53.0" text="Dato 2">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField text="introduce dato 2" />
+                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </VBox>
+                                        <TableView prefHeight="347.0" prefWidth="465.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Columna 1" />
+                                                <TableColumn prefWidth="75.0" text="Columna 2" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="SUBPROYECTOS">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+                                    <children>
+                                        <VBox prefHeight="277.0" prefWidth="163.0">
+                                            <children>
+                                                <Label prefHeight="27.0" prefWidth="84.0" text="Subproyectos" />
+                                                <TextField promptText="ID subproyecto" />
+                                                <Label prefHeight="25.0" prefWidth="101.0" text="Denominación C">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TextField text="introduce dato 2" />
+                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
+                                                </Button>
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </VBox>
+                                        <TableView prefHeight="347.0" prefWidth="465.0">
+                                            <columns>
+                                                <TableColumn prefWidth="75.0" text="Columna 1" />
+                                                <TableColumn prefWidth="75.0" text="Columna 2" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="SITUACIONES">
+                    <content>
+
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+    </center>
+    </BorderPane>
+</VBox>
