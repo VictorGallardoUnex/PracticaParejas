@@ -66,7 +66,7 @@ public class SubproyectosDAO implements IDAO {
         }
     }
 
-    public static List<Subproyectos> getAllSubproyectos() {
+    public static List<Subproyectos> getAll() {
         List<Subproyectos> subproyectos = new ArrayList<>();
 
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME);

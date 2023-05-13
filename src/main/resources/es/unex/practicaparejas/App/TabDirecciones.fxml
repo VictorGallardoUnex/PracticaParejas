@@ -10,31 +10,53 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.unex.practicaparejas.App.Controladores.TabDirecciones">
     <children>
-        <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+        <VBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
             <children>
-                <VBox prefHeight="277.0" prefWidth="163.0">
-                    <children>
-                        <Label prefHeight="27.0" prefWidth="164.0" text="Denominacion" />
-                        <TextField fx:id="direcciones_denominacion_insert" text="introduce dato 3" />
-                        <Button mnemonicParsing="false" onAction="#onDireccionesInsert" prefHeight="25.0" prefWidth="168.0" text="Introducir datos">
-                            <VBox.margin>
-                                <Insets top="20.0" />
-                            </VBox.margin>
-                        </Button>
-                    </children>
-                    <padding>
-                        <Insets top="5.0" />
-                    </padding>
-                </VBox>
-                <TableView fx:id="direccionesTableView" prefHeight="347.0" prefWidth="465.0">
-                    <columns>
-                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="direccionesColumn" prefWidth="75.0" text="Direcciones" />
-                    </columns>
-                </TableView>
+                <HBox>
+                    <TextField fx:id="filterInput" />
+                    <ComboBox fx:id="filterField">
+<!--                        <items>-->
+<!--                            <FXCollections fx:factory="observableArrayList">-->
+<!--                                <String fx:value="ID DIRECCIONES" />-->
+<!--                                <String fx:value="DENOMINACION" />-->
+<!--                            </FXCollections>-->
+<!--                        </items>-->
+                    </ComboBox>
+                    <Button text="Apply Filter" onAction="#applyFilter" />
+                </HBox>
+                <HBox>
+                    <VBox prefHeight="277.0" prefWidth="163.0">
+                        <children>
+                            <Label prefHeight="25.0" prefWidth="83.0" text="Denominación">
+                                <VBox.margin>
+                                    <Insets/>
+                                </VBox.margin>
+                            </Label>
+                            <TextField fx:id="denominacionInput" promptText="Introduzca la denominación"/>
+                            <Button mnemonicParsing="false" onAction="#direcciones_denominacion_Insert" prefHeight="25.0" prefWidth="168.0" text="Añadir datos">
+                                <VBox.margin>
+                                    <Insets top="20.0"/>
+                                </VBox.margin>
+                            </Button>
+                        </children>
+                        <padding>
+                            <Insets top="5.0"/>
+                        </padding>
+                    </VBox>
+                    <TableView fx:id="direccionesTableView" prefHeight="347.0" prefWidth="465.0">
+                        <columns>
+                            <TableColumn fx:id="id" prefWidth="102.0" text="ID DIRECCIONES"/>
+                            <TableColumn fx:id="denominacionColumn" prefWidth="126.0" text="DENOMINACION"/>
+                        </columns>
+                    </TableView>
+                </HBox>
             </children>
-        </HBox>
+        </VBox>
     </children>
 </AnchorPane>

@@ -69,7 +69,7 @@ public class ProyectosDAO implements IDAO {
         }
     }
 
-    public static List<Proyectos> getAllProyectos() {
+    public static List<Proyectos> getAll() {
         List<Proyectos> proyectos = new ArrayList<>();
 
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME);
@@ -82,7 +82,7 @@ public class ProyectosDAO implements IDAO {
                 String denominacionC = resultSet.getString("denominacionC");
                 String denominacionL = resultSet.getString("denominacionL");
 
-                Proyectos proyecto = new Proyectos(id, idServicio, fechaInicio, denominacionC, denominacionL);
+                Proyectos proyecto = new Proyectos(idServicio, fechaInicio, denominacionC, denominacionL);
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {

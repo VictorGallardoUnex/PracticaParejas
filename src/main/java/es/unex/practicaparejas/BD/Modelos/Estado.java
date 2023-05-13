@@ -13,9 +13,10 @@ public class Estado {
         this.denominacion = denominacion;
     }
 
-    public int getId() {
+    public int getIdEstado() {
         return idEstado;
     }
+
 
     public void setIdEstado(int idEstado) {
         this.idEstado = idEstado;

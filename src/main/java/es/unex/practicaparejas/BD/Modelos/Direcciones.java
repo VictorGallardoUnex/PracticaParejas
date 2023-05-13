@@ -1,18 +1,30 @@
 package es.unex.practicaparejas.BD.Modelos;
 
 public class Direcciones {
-    public int id;
+    private int idDireccion;
     private String denominacion;
+
+    public Direcciones(int idDireccion, String denominacion){
+        this.idDireccion = idDireccion;
+        this.denominacion = denominacion;
+    }
+    public Direcciones(String denominacion){
+        this.denominacion = denominacion;
+    }
+
+    public int getIdDireccion() {
+        return idDireccion;
+    }
+
+    public void setIdDireccion(int idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+
     public String getDenominacion() {
         return denominacion;
     }
-    public int getId() {
-        return id;
-    }
-    protected Direcciones(){
-    }
-    public Direcciones(int id, String denominacion){
-        this.id = id;
+
+    public void setDenominacion(String denominacion) {
         this.denominacion = denominacion;
     }
 }

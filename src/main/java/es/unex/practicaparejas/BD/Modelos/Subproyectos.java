@@ -17,6 +17,9 @@ public class Subproyectos {
         this.idProyecto = idProyecto;
     }
 
+    public Subproyectos(int id, String denominacionC) {
+    }
+
     public int getId() {
         return id;
     }

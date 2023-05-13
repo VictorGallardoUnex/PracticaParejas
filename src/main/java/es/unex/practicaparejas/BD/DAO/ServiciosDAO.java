@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiciosDAO implements IDAO {
-    static String TABLE_NAME = "SRV_Servicios";
+    static String TABLE_NAME = "PRY_Servicios";
 
     private ServiciosDAO() {
         // Private constructor to prevent instantiation
@@ -38,7 +38,7 @@ public class ServiciosDAO implements IDAO {
 
     public static boolean updateServicio(Servicios servicio) {
         try (PreparedStatement statement = conn.prepareStatement(
-                "UPDATE " + TABLE_NAME + " SET id_direccion = ? WHERE id = ?"
+                "UPDATE " + TABLE_NAME + " SET SRV_id_dirgen = ? WHERE SRV_id_servicio = ?"
         )) {
             statement.setInt(1, servicio.getId_direccion());
             statement.setInt(2, servicio.getId());
@@ -52,7 +52,7 @@ public class ServiciosDAO implements IDAO {
     }
 
     public static boolean deleteServicio(int id) {
-        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE id = ?")) {
+        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE SRV_id_servicio = ?")) {
             statement.setInt(1, id);
 
             int rowsAffected = statement.executeUpdate();
@@ -63,7 +63,7 @@ public class ServiciosDAO implements IDAO {
         }
     }
 
-    public static List<Servicios> getAllServicios() {
+    public static List<Servicios> getAll() {
         List<Servicios> servicios = new ArrayList<>();
 
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME);
@@ -83,7 +83,7 @@ public class ServiciosDAO implements IDAO {
     }
 
     public static boolean insertServicio(Servicios servicio) {
-        String sql = "INSERT INTO " + TABLE_NAME + " (id_direccion) VALUES (?)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (SRV_id_dirgen) VALUES (?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, servicio.getId_direccion());

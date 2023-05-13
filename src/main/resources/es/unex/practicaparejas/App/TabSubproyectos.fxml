@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="es.unex.practicaparejas.App.Controladores.TabSubproyectos"
+            prefHeight="400.0" prefWidth="600.0">
+
+            <children>
+                <VBox prefHeight="277.0" prefWidth="163.0">
+                    <children>
+                        <Label prefHeight="27.0" prefWidth="84.0" text="Subproyectos" />
+                        <TextField promptText="ID subproyecto" fx:id="idSubproyectoInput" />
+                        <Label prefHeight="25.0" prefWidth="101.0" text="Denominación C">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="denominacionCInput" />
+                        <Label prefHeight="25.0" prefWidth="101.0" text="Denominación L">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="denominacionLInput" />
+                        <Label prefHeight="25.0" prefWidth="101.0" text="Fecha Inicio">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="fechaInicioInput" promptText="yyyy-MM-dd" />
+                        <Label prefHeight="25.0" prefWidth="101.0" text="ID Proyecto">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="idProyectoInput" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos" onAction="#añadirDatos">
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                </VBox>
+                <TableView fx:id="subproyectosTableView" prefHeight="347.0" prefWidth="465.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="ID" fx:id="idColumn" />
+                        <TableColumn prefWidth="150.0" text="Denominación C" fx:id="denominacionCColumn" />
+                        <TableColumn prefWidth="150.0" text="Denominación L" fx:id="denominacionLColumn" />
+                        <TableColumn prefWidth="100.0" text="Fecha Inicio" fx:id="fechaInicioColumn" />
+                        <TableColumn prefWidth="100.0" text="ID Proyecto" fx:id="idProyectoColumn" />
+                    </columns>
+                </TableView>
+            </children>
+</AnchorPane>

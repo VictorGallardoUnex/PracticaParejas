@@ -7,6 +7,9 @@ public class Servicios {
         this.id = id;
         this.id_direccion = id_direccion;
     }
+    public Servicios(int id_direccion){
+        this.id_direccion = id_direccion;
+    }
 
     public int getId() {
         return id;

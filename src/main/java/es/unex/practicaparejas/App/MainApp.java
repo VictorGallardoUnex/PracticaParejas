@@ -20,15 +20,22 @@ public class MainApp extends Application {
         tab_Direcciones.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabDirecciones.fxml"))));
         Tab tab_Estados = new Tab("Estados");
         tab_Estados.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabEstados.fxml"))));
-        Tab tab_Situaciones = new Tab("Situaciones");
-        tab_Situaciones.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabSituaciones.fxml"))));
-
+//        Tab tab_Situaciones = new Tab("Situaciones");
+//        tab_Situaciones.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabSituaciones.fxml"))));
+//
+//
+//        Tab tab_Proyectos = new Tab("Proyectos");
+//        tab_Proyectos.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabProyectos.fxml"))));
+//        Tab tab_Subproyectos = new Tab("Subproyectos");
+//        tab_Subproyectos.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabSubproyectos.fxml"))));
+//        Tab tab_Servicios = new Tab("Servicios");
+//        tab_Servicios.setContent(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/es/unex/practicaparejas/App/TabServicios.fxml"))));
 
 //        Tab tab2 = new Tab("Tab 2");
 //        tab2.setContent(FXMLLoader.load(getClass().getResource("Tab2.fxml")));
 
         // Add the tabs to the tab pane
-        tabPane.getTabs().addAll(tab_Direcciones,tab_Estados,tab_Situaciones);
+        tabPane.getTabs().addAll(tab_Direcciones,tab_Estados);//,tab_Situaciones,tab_Proyectos,tab_Subproyectos, tab_Servicios);
 
         // Create a scene using the tab pane
         Scene scene = new Scene(tabPane, 600, 400);
