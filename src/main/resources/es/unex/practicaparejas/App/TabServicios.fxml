@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="es.unex.practicaparejas.App.Controladores.TabServicios"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.TextField?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="es.unex.practicaparejas.App.Controladores.TabServicios">
 
     <children>
-        <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+        <HBox prefHeight="400.0" prefWidth="600.0">
             <children>
-                <VBox prefHeight="277.0" prefWidth="163.0">
+                <HBox prefHeight="400.0" prefWidth="616.0" spacing="10.0">
                     <children>
-                        <Label text="Servicios" />
-                        <GridPane>
-                            <Label text="ID Dirección" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <ComboBox fx:id="idDireccionComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-                            <Button text="Añadir Datos" GridPane.columnIndex="0" GridPane.rowIndex="1"
-                                    onAction="#añadirDatos" GridPane.columnSpan="2">
-                                <VBox.margin>
-                                    <Insets top="20.0" />
-                                </VBox.margin>
-                            </Button>
-                        </GridPane>
+                        <VBox prefHeight="400.0" prefWidth="245.0" spacing="10.0">
+                            <children>
+                                <HBox spacing="10.0">
+                                    <Label text="Id:" />
+                                    <ComboBox fx:id="idDireccionComboBox" onShowing="#loadComboBoxData" />
+                                </HBox>
+<!--                                <HBox spacing="10.0">-->
+<!--                                    <Label text="Id Direccion:" />-->
+<!--                                    <TextField fx:id="idDireccionInput" />-->
+<!--                                </HBox>-->
+                                <HBox spacing="10.0">
+                                    <Button onAction="#addServicio" text="Add" />
+                                    <Button onAction="#updateServicio" text="Update" />
+                                    <Button onAction="#deleteServicio" text="Delete" />
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="400.0" prefWidth="382.0">
+                            <children>
+                                <HBox prefHeight="36.0" prefWidth="364.0">
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="39.0" text="Filter:" />
+                                        <ComboBox fx:id="filterFieldComboBox" />
+                                        <TextField fx:id="filterInputTextField" />
+                                        <Button onAction="#applyFilter" text="Apply" />
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="serviciosTableView" prefHeight="376.0" prefWidth="364.0">
+                                    <columns>
+                                        <TableColumn fx:id="idColumn" text="Id" />
+                                        <TableColumn fx:id="idDireccionColumn" text="Id Direccion" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </VBox>
                     </children>
-                    <padding>
-                        <Insets top="5.0" />
-                    </padding>
-                </VBox>
-                <TableView fx:id="serviciosTableView" prefHeight="347.0" prefWidth="465.0">
-                    <columns>
-                        <TableColumn fx:id="idColumn" text="ID" />
-                        <TableColumn fx:id="idDireccionColumn" text="ID Dirección" />
-                    </columns>
-                </TableView>
+                </HBox>
             </children>
         </HBox>
     </children>

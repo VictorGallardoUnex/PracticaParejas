@@ -1,43 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="es.unex.practicaparejas.App.Controladores.TabProyectos"
-            prefHeight="400.0" prefWidth="600.0">
 
-    <children>
-        <HBox layoutX="4.0" layoutY="5.0" prefHeight="347.0" prefWidth="628.0">
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.unex.practicaparejas.App.Controladores.TabProyectos">
+   <children>
+        <HBox prefWidth="751.0">
+         <VBox prefWidth="113.0">
             <children>
-                <VBox prefHeight="277.0" prefWidth="163.0">
-                    <children>
-                        <Label prefHeight="27.0" prefWidth="84.0" text="Proyectos" />
-                        <TextField promptText="Denominación C" fx:id="denominacionCInput" />
-                        <TextField promptText="Denominación L" fx:id="denominacionLInput" />
-                        <TextField promptText="Fecha Inicio" fx:id="fechaInicioInput" />
-                        <ComboBox fx:id="idServicioComboBox" promptText="ID Servicio" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Añadir datos" onAction="#añadirDatos">
-                            <VBox.margin>
-                                <Insets top="20.0" />
-                            </VBox.margin>
-                        </Button>
-                    </children>
-                    <padding>
-                        <Insets top="5.0" />
-                    </padding>
-                </VBox>
-                <TableView fx:id="proyectosTableView" prefHeight="347.0" prefWidth="465.0">
-                    <columns>
-                        <TableColumn prefWidth="100.0" text="Denominación C" fx:id="denominacionCColumn" />
-                        <TableColumn prefWidth="100.0" text="Denominación L" fx:id="denominacionLColumn" />
-                        <TableColumn prefWidth="100.0" text="Fecha Inicio" fx:id="fechaInicioColumn" />
-                        <TableColumn prefWidth="100.0" text="ID Servicio" fx:id="idServicioColumn" />
-                    </columns>
-                </TableView>
+               <Label text="ID Servicio" />
+                  <ComboBox fx:id="PRY_id_servicioInput" />
+               <Label text="Fecha Inicio" />
+                  <DatePicker fx:id="PRY_fechainicioInput" promptText="Fecha Inicio" />
+               <Label text="Denominacion C" />
+                  <TextField fx:id="PRY_denominacioncInput" promptText="Denominación C" />
+               <Label text="Denominacion L" />
+                  <TextField fx:id="PRY_denominacionlInput" promptText="Denominación L" />
+                  <Button onAction="#proyectos_Insert" text="Add" />
             </children>
+         </VBox>
+         <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="643.0">
+             <children>
+                 <HBox>
+                     <TextField fx:id="filterInput" promptText="Filter" />
+                     <ComboBox fx:id="filterField">
+                         <items>
+                             <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="ID Servicio" />
+                                 <String fx:value="Fecha Inicio" />
+                                 <String fx:value="Denominación C" />
+                                 <String fx:value="Denominación L" />
+                             </FXCollections>
+                         </items>
+                     </ComboBox>
+                     <Button onAction="#applyFilter" text="Apply Filter" />
+                 </HBox>
+                 <TableView fx:id="proyectosTableView" prefHeight="400.0" prefWidth="200.0">
+                     <columns>
+                         <TableColumn fx:id="PRY_id_servicioColumn" text="ID Servicio" />
+                         <TableColumn fx:id="PRY_fechainicioColumn" prefWidth="153.0" text="Fecha Inicio" />
+                         <TableColumn fx:id="PRY_denominacioncColumn" prefWidth="161.0" text="Denominación C" />
+                         <TableColumn fx:id="PRY_denominacionlColumn" prefWidth="143.0" text="Denominación L" />
+                     </columns>
+                 </TableView>
+             </children>
+         </VBox>
         </HBox>
-    </children>
+   </children>
 </AnchorPane>

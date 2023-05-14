@@ -2,7 +2,6 @@ package es.unex.practicaparejas.BD.DAO;
 
 import es.unex.practicaparejas.BD.Modelos.Servicios;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,12 +18,12 @@ public class ServiciosDAO implements IDAO {
     public static Servicios getServicioById(int id) {
         Servicios servicio = null;
 
-        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE id = ?")) {
+        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE SRV_id_servicio = ?")) {
             statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    int idDireccion = resultSet.getInt("id_direccion");
+                    int idDireccion = resultSet.getInt("SRV_id_dirgen");
 
                     servicio = new Servicios(id, idDireccion);
                 }
@@ -40,8 +39,8 @@ public class ServiciosDAO implements IDAO {
         try (PreparedStatement statement = conn.prepareStatement(
                 "UPDATE " + TABLE_NAME + " SET SRV_id_dirgen = ? WHERE SRV_id_servicio = ?"
         )) {
-            statement.setInt(1, servicio.getId_direccion());
-            statement.setInt(2, servicio.getId());
+            statement.setInt(1, servicio.getSRV_id_dirgen());
+            statement.setInt(2, servicio.getSRV_id_servicio());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
@@ -69,8 +68,8 @@ public class ServiciosDAO implements IDAO {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                int idDireccion = resultSet.getInt("id_direccion");
+                int id = resultSet.getInt("SRV_id_servicio");
+                int idDireccion = resultSet.getInt("SRV_id_dirgen");
 
                 Servicios servicio = new Servicios(id, idDireccion);
                 servicios.add(servicio);
@@ -86,7 +85,7 @@ public class ServiciosDAO implements IDAO {
         String sql = "INSERT INTO " + TABLE_NAME + " (SRV_id_dirgen) VALUES (?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, servicio.getId_direccion());
+            statement.setInt(1, servicio.getSRV_id_dirgen());
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;

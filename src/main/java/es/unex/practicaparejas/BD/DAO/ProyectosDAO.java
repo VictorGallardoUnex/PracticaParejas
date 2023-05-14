@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ProyectosDAO implements IDAO {
     static String TABLE_NAME  = "PRY_Proyectos";
+
     private ProyectosDAO() {
         // Private constructor to prevent instantiation
     }
@@ -23,11 +24,10 @@ public class ProyectosDAO implements IDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    String nombre = resultSet.getString("nombre");
-                    int idServicio = resultSet.getInt("id_servicio");
-                    Date fechaInicio = resultSet.getDate("fecha_inicio");
-                    String denominacionC = resultSet.getString("denominacionC");
-                    String denominacionL = resultSet.getString("denominacionL");
+                    int idServicio = resultSet.getInt("PRY_id_servicio");
+                    Date fechaInicio = resultSet.getDate("PRY_fechainicio");
+                    String denominacionC = resultSet.getString("PRY_denominacionc");
+                    String denominacionL = resultSet.getString("PRY_denominacionl");
 
                     proyecto = new Proyectos(idServicio, fechaInicio, denominacionC, denominacionL);
                 }
@@ -41,13 +41,13 @@ public class ProyectosDAO implements IDAO {
 
     public static boolean updateProyecto(Proyectos proyecto) {
         try (PreparedStatement statement = conn.prepareStatement(
-                "UPDATE " + TABLE_NAME + " SET PRY_id_servicio = ?, PRY_fechainicio = ?, PRY_denominacionc = ?, PRY_denominacionl = ? WHERE PRY_id_servicio = ?"
+                "UPDATE " + TABLE_NAME + " SET PRY_id_servicio = ?, PRY_fechainicio = ?, PRY_denominacionc = ?, PRY_denominacionl = ? WHERE PRY_id_proyecto = ?"
         )) {
-            statement.setInt(1, proyecto.getId_servicio());
-            statement.setDate(2, new java.sql.Date(proyecto.getFecha_inicio().getTime()));
-            statement.setString(3, proyecto.getDenomicacionC());
-            statement.setString(4, proyecto.getDenominacionL());
-            statement.setInt(5, proyecto.getId());
+            statement.setInt(1, proyecto.getPRY_id_servicio());
+            statement.setDate(2, new java.sql.Date(proyecto.getPRY_fechainicio().getTime()));
+            statement.setString(3, proyecto.getPRY_denominacionc());
+            statement.setString(4, proyecto.getPRY_denominacionl());
+            statement.setInt(5, proyecto.getPRY_id_proyecto());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
@@ -75,12 +75,11 @@ public class ProyectosDAO implements IDAO {
         try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String nombre = resultSet.getString("nombre");
-                int idServicio = resultSet.getInt("id_servicio");
-                Date fechaInicio = resultSet.getDate("fecha_inicio");
-                String denominacionC = resultSet.getString("denominacionC");
-                String denominacionL = resultSet.getString("denominacionL");
+                int id = resultSet.getInt("PRY_id_proyecto");
+                int idServicio = resultSet.getInt("PRY_id_servicio");
+                Date fechaInicio = resultSet.getDate("PRY_fechainicio");
+                String denominacionC = resultSet.getString("PRY_denominacionc");
+                String denominacionL = resultSet.getString("PRY_denominacionl");
 
                 Proyectos proyecto = new Proyectos(idServicio, fechaInicio, denominacionC, denominacionL);
                 proyectos.add(proyecto);
@@ -91,14 +90,15 @@ public class ProyectosDAO implements IDAO {
 
         return proyectos;
     }
+
     public static boolean insertProyecto(Proyectos proyecto) {
-        String sql = "INSERT INTO " + TABLE_NAME + " (PRY_id_servicio, PRY_fechainicio, PRY_denominacionc, PRY_denominacionl) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (PRY_id_servicio, PRY_fechainicio, PRY_denominacionc, PRY_denominacionl) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, proyecto.getId_servicio());
-            statement.setDate(2, new java.sql.Date(proyecto.getFecha_inicio().getTime()));
-            statement.setString(3, proyecto.getDenomicacionC());
-            statement.setString(4, proyecto.getDenominacionL());
+            statement.setInt(1, proyecto.getPRY_id_servicio());
+            statement.setDate(2, new java.sql.Date(proyecto.getPRY_fechainicio().getTime()));
+            statement.setString(3, proyecto.getPRY_denominacionc());
+            statement.setString(4, proyecto.getPRY_denominacionl());
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
@@ -107,5 +107,4 @@ public class ProyectosDAO implements IDAO {
             return false;
         }
     }
-
 }
