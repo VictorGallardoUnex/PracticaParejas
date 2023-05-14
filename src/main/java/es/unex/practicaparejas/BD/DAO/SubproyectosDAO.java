@@ -54,16 +54,13 @@ public class SubproyectosDAO implements IDAO {
         }
     }
 
-    public static boolean deleteSubproyecto(int id) {
-        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE SBP_id_subproyecto = ?")) {
-            statement.setInt(1, id);
+    public static boolean eliminarSubproyecto(Subproyectos subproyecto) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE SBP_id_subproyecto = ?");
+            statement.setInt(1, subproyecto.getIdSubproyecto());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+
     }
 
     public static List<Subproyectos> getAll() {
@@ -88,7 +85,7 @@ public class SubproyectosDAO implements IDAO {
         return subproyectos;
     }
 
-    public static boolean insertSubproyecto(Subproyectos subproyecto) {
+    public static boolean insertarSubproyecto(Subproyectos subproyecto) {
         String sql = "INSERT INTO " + TABLE_NAME + " (SBP_denominacionc, SBP_denominacionl, SBP_fechainicio, SBP_id_proyecto) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {

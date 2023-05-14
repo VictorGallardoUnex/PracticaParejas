@@ -1,6 +1,6 @@
 package es.unex.practicaparejas.BD.Modelos;
 
-public class Servicios {
+public class Servicios implements IModelo {
 
     int SRV_id_servicio;
     int SRV_id_dirgen;
@@ -29,4 +29,9 @@ public class Servicios {
     public void setSRV_id_dirgen(int SRV_id_dirgen) {
         this.SRV_id_dirgen = SRV_id_dirgen;
     }
+    @Override
+    public String toString() {
+        return "ID: " + SRV_id_servicio + " | ID Dirección: " + SRV_id_dirgen;
+    }
+
 }

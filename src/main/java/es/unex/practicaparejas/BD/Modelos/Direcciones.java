@@ -1,6 +1,6 @@
 package es.unex.practicaparejas.BD.Modelos;
 
-public class Direcciones {
+public class Direcciones implements IModelo {
     private int idDireccion;
     private String denominacion;
 

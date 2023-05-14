@@ -2,7 +2,7 @@ package es.unex.practicaparejas.BD.Modelos;
 
 import java.sql.Date;
 
-public class Situaciones {
+public class Situaciones implements IModelo {
     private int idSubproyecto;
     private int idEstado;
     private Date fechaRef;
@@ -35,5 +35,11 @@ public class Situaciones {
 
     public void setFechaRef(Date fechaRef) {
         this.fechaRef = fechaRef;
+    }
+    @Override
+    public String toString() {
+        return "ID Subproyecto: " + idSubproyecto +
+                " | ID Estado: " + idEstado +
+                " | Fecha Ref: " + fechaRef;
     }
 }

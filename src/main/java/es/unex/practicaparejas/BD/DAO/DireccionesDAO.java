@@ -12,29 +12,10 @@ public class DireccionesDAO implements IDAO {
     private static final String TABLE_NAME = "PRY_Direcciones";
 
     private DireccionesDAO() {
-        // Private constructor to prevent instantiation
+        // Constructor privado para que no se puedan instanciar objetos
     }
 
-    public static Direcciones getDireccionById(int idDireccion) {
-        Direcciones direccion = null;
-
-        try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE DGN_id_dirgen = ?")) {
-
-            statement.setInt(1, idDireccion);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    String denominacion = resultSet.getString("DGN_denominacion");
-                    direccion = new Direcciones(idDireccion, denominacion);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return direccion;
-    }
-
-    public static boolean updateDireccion(int idDireccion, String denominacion) {
+    public static boolean actualizarDireccion(int idDireccion, String denominacion) {
         try (PreparedStatement statement = conn.prepareStatement("UPDATE " + TABLE_NAME + " SET DGN_denominacion = ? WHERE DGN_id_dirgen = ?")) {
 
             statement.setString(1, denominacion);
@@ -47,7 +28,7 @@ public class DireccionesDAO implements IDAO {
         }
     }
 
-    public static boolean deleteDireccion(int idDireccion) {
+    public static boolean eliminarDireccion(int idDireccion) {
         try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE DGN_id_dirgen = ?")) {
 
             statement.setInt(1, idDireccion);
@@ -77,7 +58,7 @@ public class DireccionesDAO implements IDAO {
         return direcciones;
     }
 
-    public static boolean insertDireccion(String denominacion) {
+    public static boolean insertarDireccion(String denominacion) {
         String sql = "INSERT INTO " + TABLE_NAME + " (DGN_denominacion) VALUES (?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {

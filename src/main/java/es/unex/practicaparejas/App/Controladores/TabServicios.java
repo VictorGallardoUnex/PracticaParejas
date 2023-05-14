@@ -12,9 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.SQLException;
 import java.util.List;
 
-public class TabServicios {
+
+public class TabServicios implements ITabController{
 
     @FXML
     private TableView<Servicios> serviciosTableView;
@@ -34,6 +36,7 @@ public class TabServicios {
     private ComboBox<Integer> idDireccionComboBox;
     @FXML
     public void initialize() {
+
         // Initialize the table
         idColumn.setCellValueFactory(new PropertyValueFactory<>("SRV_id_servicio"));
         idDireccionColumn.setCellValueFactory(new PropertyValueFactory<>("SRV_id_dirgen"));
@@ -44,13 +47,13 @@ public class TabServicios {
         loadTableData();
     }
 
-
     @FXML
     public void añadirDatos() {
         Integer idDireccion = idDireccionComboBox.getValue();
         Servicios newServicio = new Servicios(idDireccion);
-        if (ServiciosDAO.insertServicio(newServicio)) {
+        if (ServiciosDAO.insertarServicio(newServicio)) {
             loadTableData();
+            Utils.showInsercionOk();
         }
         idDireccionComboBox.getSelectionModel().clearSelection();
     }
@@ -59,6 +62,7 @@ public class TabServicios {
         ObservableList<Servicios> servicios = FXCollections.observableArrayList(ServiciosDAO.getAll());
         serviciosTableView.setItems(servicios);
     }
+
     @FXML
     public void loadComboBoxData() {
         List<Direcciones> direccionesList = DireccionesDAO.getAll();
@@ -68,13 +72,14 @@ public class TabServicios {
         }
         idDireccionComboBox.setItems(ids);
     }
+
     @FXML
     public void addServicio() {
         int idDireccion = idDireccionComboBox.getValue();
 
         Servicios newServicio = new Servicios(idDireccion);
-        if (ServiciosDAO.insertServicio(newServicio)) {
-            loadTableData(); // Refresh table data after successful insert
+        if (ServiciosDAO.insertarServicio(newServicio)) {
+            loadTableData(); // Refresh table data after successful insertarEstado
         } else {
             System.out.println("Error inserting new servicio");
         }
@@ -91,25 +96,31 @@ public class TabServicios {
         int idDireccion = idDireccionComboBox.getValue();
         selectedServicio.setSRV_id_dirgen(idDireccion);
 
-        if (ServiciosDAO.updateServicio(selectedServicio)) {
-            loadTableData(); // Refresh table data after successful update
+        if (ServiciosDAO.actualizarServicio(selectedServicio)) {
+            loadTableData(); // Refrescar datos de la tabla después de una actualización exitosa
         } else {
-            System.out.println("Error updating servicio");
+            System.out.println("Error actualizando servicio");
         }
+        idDireccionComboBox.setItems(null);
+        serviciosTableView.getSelectionModel().clearSelection();
     }
 
     @FXML
     public void deleteServicio() {
         Servicios selectedServicio = serviciosTableView.getSelectionModel().getSelectedItem();
         if (selectedServicio == null) {
-            System.out.println("No servicio selected for delete");
+            System.out.println("No hay servicio seleccionado para eliminar");
             return;
         }
 
-        if (ServiciosDAO.deleteServicio(selectedServicio.getSRV_id_dirgen())) {
-            loadTableData(); // Refresh table data after successful delete
-        } else {
-            System.out.println("Error deleting servicio");
+        try {
+            if (ServiciosDAO.eliminarServicio(selectedServicio)) {
+                loadTableData(); // Refresh table data after successful delete
+            } else {
+                System.out.println("Error al eliminar el servicio");
+            }
+        } catch (SQLException e) {
+            handleSqlException(e);
         }
     }
     @FXML
@@ -139,7 +150,46 @@ public class TabServicios {
         sortedData.comparatorProperty().bind(serviciosTableView.comparatorProperty());
         serviciosTableView.setItems(sortedData);
     }
+    @FXML
+    public void loadSelectedServicio() {
+        Servicios selectedServicio = serviciosTableView.getSelectionModel().getSelectedItem();
 
+        if (selectedServicio != null) {
+            int idDireccion = selectedServicio.getSRV_id_dirgen();
+
+            idDireccionComboBox.setValue(idDireccion);
+        }
+    }
+    public void clearSelection() {
+        serviciosTableView.getSelectionModel().clearSelection();
+    }
+    @FXML
+    public void deleteSelectedServicio() {
+        Servicios selectedServicio = serviciosTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedServicio != null) {
+            boolean confirmed = Utils.confirmDeletion(selectedServicio);
+
+            if (confirmed) {
+                try {
+                    if (ServiciosDAO.eliminarServicio(selectedServicio)) {
+                        loadTableData(); // Reload the table data
+                    } else {
+                        System.out.println("Error eliminando Servicio");
+                    }
+                } catch (SQLException e) {
+                    handleSqlException(e);
+                }
+            }
+        } else {
+            Utils.showNoSelected();
+        }
+    }
+    @Override
+    public void limpiarFormulario() {
+        idDireccionComboBox.getSelectionModel().clearSelection();
+        serviciosTableView.getSelectionModel().clearSelection();
+    }
 
 
 }

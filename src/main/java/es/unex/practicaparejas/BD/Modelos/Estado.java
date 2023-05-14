@@ -1,6 +1,6 @@
 package es.unex.practicaparejas.BD.Modelos;
 
-public class Estado {
+public class Estado implements IModelo {
     private int idEstado;
     private String denominacion;
 
@@ -29,4 +29,10 @@ public class Estado {
     public void setDenominacion(String denominacion) {
         this.denominacion = denominacion;
     }
+    @Override
+    public String toString() {
+        return "ID: " + idEstado +
+                " | Denominacion: " + denominacion;
+    }
+
 }

@@ -16,7 +16,7 @@ public class SituacionesDAO implements IDAO {
         // Private constructor to prevent instantiation
     }
 
-    public static boolean insertSituacion(Situaciones situacion) {
+    public static boolean insertarSituacion(Situaciones situacion) {
         String sql = "INSERT INTO " + TABLE_NAME + " (STC_id_subproyecto, STC_id_estado, STC_fecharef) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -32,18 +32,15 @@ public class SituacionesDAO implements IDAO {
         }
     }
 
-    public static boolean deleteSituacion(int idSubproyecto, int idEstado) {
-        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE STC_id_subproyecto = ? AND STC_id_estado = ?")) {
-            statement.setInt(1, idSubproyecto);
-            statement.setInt(2, idEstado);
+    public static boolean eliminarSituacion(Situaciones situacion) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE STC_id_subproyecto = ? AND STC_id_estado = ?");
+        statement.setInt(1, situacion.getIdSubproyecto());
+        statement.setInt(2, situacion.getIdEstado());
 
-            int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0;
     }
+
 
     public static List<Situaciones> getAllSituaciones() {
         List<Situaciones> situaciones = new ArrayList<>();
@@ -64,4 +61,20 @@ public class SituacionesDAO implements IDAO {
 
         return situaciones;
     }
+    public static boolean actualizarSituaciones(Situaciones situacion) {
+        String sql = "UPDATE " + TABLE_NAME + " SET STC_fecharef = ? WHERE STC_id_subproyecto = ? AND STC_id_estado = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setDate(1, new java.sql.Date(situacion.getFechaRef().getTime()));
+            statement.setInt(2, situacion.getIdSubproyecto());
+            statement.setInt(3, situacion.getIdEstado());
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

@@ -6,13 +6,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TabEstados {
+import java.sql.SQLException;
+
+import static es.unex.practicaparejas.App.Controladores.Utils.setMaxCharacterLimit;
+
+public class TabEstados implements ITabController {
 
     @FXML
     private TextField denominacionInput;
@@ -32,25 +33,28 @@ public class TabEstados {
     @FXML
     private ComboBox<String> filterField;
 
-    // Keep a reference to the original data list
+    // Mantener una referencia a los datos originales para usarlos para filtrar
     private ObservableList<Estado> originalData;
 
     @FXML
     public void initialize() {
+
+
+        setMaxCharacterLimit(denominacionInput,25);
         // Configura las columnas de la tabla
         id.setCellValueFactory(new PropertyValueFactory<>("idEstado"));
         denominacionColumn.setCellValueFactory(new PropertyValueFactory<>("denominacion"));
 
-        // Initialize the original data list
+        // Initializa la tabla con los datos de la base de datos
         originalData = FXCollections.observableArrayList(EstadosDAO.getAll());
 
-        // Create a filtered list that wraps the original data list
+        // Crear una lista filtrada con todos los datos
         FilteredList<Estado> filteredData = new FilteredList<>(originalData);
 
-        // Bind the filtered list to the TableView items
+        // Enlaza la lista filtrada con la tabla
         estadosTableView.setItems(filteredData);
 
-        // Set default selection
+        // Establece el comparador de la lista filtrada
         filterField.getSelectionModel().selectFirst();
     }
 
@@ -60,7 +64,9 @@ public class TabEstados {
         Estado nuevoEstado = new Estado(denominacionInput.getText());
 
         // Inserta el nuevo estado en la base de datos
-        if(EstadosDAO.insert(nuevoEstado)) {
+        if (EstadosDAO.insertarEstado(nuevoEstado)) {
+            // Muestra un mensaje de inserción correcta
+            Utils.showInsercionOk();
             // Limpia el campo de texto
             denominacionInput.clear();
 
@@ -71,17 +77,16 @@ public class TabEstados {
         }
     }
 
-    @FXML
-    public void applyFilter() {
+    @Override
+    public void aplicarFiltro() {
         if (filterInput.getText().isEmpty()) {
-            // No filter text, show all data
-            ((FilteredList<Estado>)estadosTableView.getItems()).setPredicate(estado -> true);
+            ((FilteredList<Estado>) estadosTableView.getItems()).setPredicate(estado -> true);
         } else {
             String filterFieldText = filterField.getValue();
             String filterInputText = filterInput.getText();
 
-            // Set the predicate of the filtered list based on the filter criteria
-            ((FilteredList<Estado>)estadosTableView.getItems()).setPredicate(estado -> {
+            // Establece el predicado de la lista filtrada según el campo de filtro seleccionado
+            ((FilteredList<Estado>) estadosTableView.getItems()).setPredicate(estado -> {
                 if (filterFieldText.equals("ID ESTADOS")) {
                     // If filtering by "ID ESTADOS", convert ID to String for comparison
                     return String.valueOf(estado.getIdEstado()).contains(filterInputText);
@@ -94,5 +99,63 @@ public class TabEstados {
                 }
             });
         }
+    }
+
+    @FXML
+    public void loadSelectedEstado() {
+        // Obtiene el estado seleccionado de la tabla
+        Estado selectedEstado = estadosTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedEstado != null) {
+            // Cargo los datos del estado seleccionado en los campos de texto
+            denominacionInput.setText(selectedEstado.getDenominacion());
+        }
+    }
+
+    @FXML
+    public void updateSelectedEstado() {
+        // Obtiene el estado seleccionado de la tabla
+        Estado selectedEstado = estadosTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedEstado != null) {
+            // Actualiza los datos del estado seleccionado con los datos introducidos por el usuario
+            selectedEstado.setDenominacion(denominacionInput.getText());
+
+            // Actualiza el estado en la base de datos
+            EstadosDAO.actualizarEstado(selectedEstado);
+
+            // Limpia el campo de texto
+            denominacionInput.clear();
+
+            // Actualiza la lista de datos originales y resetea el filtro
+            originalData.setAll(EstadosDAO.getAll());
+        }
+    }
+    @FXML
+    public void deleteSelectedEstado() {
+        Estado selectedEstado = estadosTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedEstado != null) {
+            boolean confirmed = Utils.confirmDeletion(selectedEstado);
+
+            if (confirmed) {
+                try {
+                    EstadosDAO.eliminarEstado(selectedEstado);
+                } catch (SQLException e) {
+                    handleSqlException(e);
+                }
+                denominacionInput.clear();
+                originalData.setAll(EstadosDAO.getAll());
+            }
+        } else {
+            Utils.showNoSelected();
+        }
+    }
+
+
+    @Override
+    public void limpiarFormulario() {
+        denominacionInput.clear();
+        estadosTableView.getSelectionModel().clearSelection();
     }
 }

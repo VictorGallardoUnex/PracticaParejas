@@ -12,7 +12,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TabDirecciones {
+import static es.unex.practicaparejas.App.Controladores.Utils.setMaxCharacterLimit;
+import static es.unex.practicaparejas.App.Controladores.Utils.showInsercionOk;
+
+public class TabDirecciones implements ITabController {
 
     @FXML
     private TextField denominacionInput;
@@ -32,11 +35,11 @@ public class TabDirecciones {
     @FXML
     private ComboBox<String> filterField;
 
-    // Declare direcciones at class level
     private ObservableList<Direcciones> direcciones;
 
     @FXML
     public void initialize() {
+        setMaxCharacterLimit(denominacionInput,150);
         id.setCellValueFactory(new PropertyValueFactory<>("idDireccion"));
         denominacionColumn.setCellValueFactory(new PropertyValueFactory<>("denominacion"));
 
@@ -48,7 +51,9 @@ public class TabDirecciones {
     @FXML
     public void direcciones_denominacion_Insert() {
         String denominacion = denominacionInput.getText();
-        DireccionesDAO.insertDireccion(denominacion);
+        if(DireccionesDAO.insertarDireccion(denominacion)){
+            showInsercionOk();
+        }
         loadTableData();
         denominacionInput.clear();
     }
@@ -59,7 +64,7 @@ public class TabDirecciones {
         String filterFieldString = filterField.getValue();
 
         if(filterValue.isEmpty() || filterFieldString.isEmpty()){
-            loadTableData(); // If no filter is set, load all data.
+            loadTableData();
             return;
         }
 
@@ -81,8 +86,69 @@ public class TabDirecciones {
         direccionesTableView.setItems(sortedData);
     }
 
+    @FXML
+    public void loadSelectedDireccion() {
+        // Get the selected direccion from the TableView
+        Direcciones selectedDireccion = direccionesTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedDireccion != null) {
+            // Load the selected direccion's data into the input fields
+            denominacionInput.setText(selectedDireccion.getDenominacion());
+        }
+    }
+
+    @FXML
+    public void updateSelectedDireccion() {
+        // Get the selected direccion from the TableView
+        Direcciones selectedDireccion = direccionesTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedDireccion != null) {
+            // Update the selected direccion with the data from the input fields
+            selectedDireccion.setDenominacion(denominacionInput.getText());
+
+            // Update the direccion in the database
+            DireccionesDAO.actualizarDireccion(selectedDireccion.getIdDireccion(), selectedDireccion.getDenominacion());
+
+            //
+            // Clear the input fields
+            denominacionInput.clear();
+
+            // Update the original data list and reset the filter
+            loadTableData();
+        }
+    }
+    @FXML
+    public void deleteSelectedDireccion() {
+        // Obtener la dirección seleccionada de TableView
+        Direcciones selectedDireccion = direccionesTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedDireccion != null) {
+            // Confirmar al eliminacion
+            boolean confirmed = Utils.confirmDeletion(selectedDireccion);
+
+            if (confirmed) {
+                // Eliminar la dirección de la base de datos
+                DireccionesDAO.eliminarDireccion(selectedDireccion.getIdDireccion());
+
+                // Limpiar los campos de entrada
+                denominacionInput.clear();
+
+                // Actualizar la lista de datos originales y restablecer el filtro
+                loadTableData();
+            }
+        } else {
+            Utils.showNoSelected();
+        }
+    }
+
+
     private void loadTableData() {
         direcciones = DireccionesDAO.getAll();
         direccionesTableView.setItems(direcciones);
+    }
+    @Override
+    public void limpiarFormulario(){
+        denominacionInput.clear();
+        direccionesTableView.getSelectionModel().clearSelection();
     }
 }

@@ -35,7 +35,7 @@ public class ServiciosDAO implements IDAO {
         return servicio;
     }
 
-    public static boolean updateServicio(Servicios servicio) {
+    public static boolean actualizarServicio(Servicios servicio) {
         try (PreparedStatement statement = conn.prepareStatement(
                 "UPDATE " + TABLE_NAME + " SET SRV_id_dirgen = ? WHERE SRV_id_servicio = ?"
         )) {
@@ -50,16 +50,13 @@ public class ServiciosDAO implements IDAO {
         }
     }
 
-    public static boolean deleteServicio(int id) {
-        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE SRV_id_servicio = ?")) {
-            statement.setInt(1, id);
+    public static boolean eliminarServicio(Servicios servicio) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE SRV_id_servicio = ?");
+            statement.setInt(1, servicio.getSRV_id_servicio());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+
     }
 
     public static List<Servicios> getAll() {
@@ -81,7 +78,7 @@ public class ServiciosDAO implements IDAO {
         return servicios;
     }
 
-    public static boolean insertServicio(Servicios servicio) {
+    public static boolean insertarServicio(Servicios servicio) {
         String sql = "INSERT INTO " + TABLE_NAME + " (SRV_id_dirgen) VALUES (?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {

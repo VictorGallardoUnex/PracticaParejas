@@ -2,7 +2,7 @@ package es.unex.practicaparejas.BD.Modelos;
 
 import java.sql.Date;
 
-public class Subproyectos {
+public class Subproyectos implements IModelo {
     private int id;
     private String denominacionC;
     private String denominacionL;
@@ -16,11 +16,18 @@ public class Subproyectos {
         this.fechaInicio = fechaInicio;
         this.idProyecto = idProyecto;
     }
-
-    public Subproyectos(int id, String denominacionC) {
+    public Subproyectos(String denominacionC, String denominacionL, Date fechaInicio, int idProyecto) {
+        this.denominacionC = denominacionC;
+        this.denominacionL = denominacionL;
+        this.fechaInicio = fechaInicio;
+        this.idProyecto = idProyecto;
     }
 
+
     public int getId() {
+        return id;
+    }
+    public int getIdSubproyecto() {
         return id;
     }
 
@@ -58,5 +65,13 @@ public class Subproyectos {
 
     public void setIdProyecto(int idProyecto) {
         this.idProyecto = idProyecto;
+    }
+    @Override
+    public String toString() {
+        return "ID: " + id +
+                " | Denominacion C: " + denominacionC +
+                " | Denominacion L: " + denominacionL +
+                " | Fecha Inicio: " + fechaInicio +
+                " | ID Proyecto: " + idProyecto;
     }
 }

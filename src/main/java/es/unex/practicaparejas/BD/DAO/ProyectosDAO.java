@@ -39,7 +39,7 @@ public class ProyectosDAO implements IDAO {
         return proyecto;
     }
 
-    public static boolean updateProyecto(Proyectos proyecto) {
+    public static boolean actualizarProyecto(Proyectos proyecto) {
         try (PreparedStatement statement = conn.prepareStatement(
                 "UPDATE " + TABLE_NAME + " SET PRY_id_servicio = ?, PRY_fechainicio = ?, PRY_denominacionc = ?, PRY_denominacionl = ? WHERE PRY_id_proyecto = ?"
         )) {
@@ -57,16 +57,13 @@ public class ProyectosDAO implements IDAO {
         }
     }
 
-    public static boolean deleteProyecto(int id) {
-        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE PRY_id_proyecto = ?")) {
-            statement.setInt(1, id);
+    public static boolean eliminarProyecto(Proyectos proyecto) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE PRY_id_proyecto = ?");
+            statement.setInt(1, proyecto.getIdProyecto());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+
     }
 
     public static List<Proyectos> getAll() {
@@ -81,7 +78,7 @@ public class ProyectosDAO implements IDAO {
                 String denominacionC = resultSet.getString("PRY_denominacionc");
                 String denominacionL = resultSet.getString("PRY_denominacionl");
 
-                Proyectos proyecto = new Proyectos(idServicio, fechaInicio, denominacionC, denominacionL);
+                Proyectos proyecto = new Proyectos(id,idServicio, fechaInicio, denominacionC, denominacionL);
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {
@@ -91,7 +88,7 @@ public class ProyectosDAO implements IDAO {
         return proyectos;
     }
 
-    public static boolean insertProyecto(Proyectos proyecto) {
+    public static boolean insertarProyecto(Proyectos proyecto) {
         String sql = "INSERT INTO " + TABLE_NAME + " (PRY_id_servicio, PRY_fechainicio, PRY_denominacionc, PRY_denominacionl) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {

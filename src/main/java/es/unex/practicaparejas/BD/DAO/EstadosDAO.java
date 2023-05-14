@@ -15,7 +15,7 @@ public class EstadosDAO implements IDAO {
         // Private constructor to prevent instantiation
     }
 
-    public static boolean insert(Estado estado) {
+    public static boolean insertarEstado(Estado estado) {
         String sql = "INSERT INTO " + TABLE_NAME + " (STD_denominacion) VALUES (?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -29,16 +29,13 @@ public class EstadosDAO implements IDAO {
         }
     }
 
-    public static boolean deleteEstado(int idEstado) {
-        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE STD_id_estado = ?")) {
-            statement.setInt(1, idEstado);
+    public static boolean eliminarEstado(Estado estado) throws SQLException {
+        PreparedStatement statement = conn.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE STD_id_estado = ?");
+            statement.setInt(1, estado.getIdEstado());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+
     }
 
     public static List<Estado> getAll() {
@@ -58,5 +55,20 @@ public class EstadosDAO implements IDAO {
         }
 
         return estados;
+    }
+    public static void actualizarEstado(Estado estado){
+        String sql = "UPDATE " + TABLE_NAME + " SET STD_denominacion = ? WHERE STD_id_estado = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, estado.getDenominacion());
+            statement.setInt(2, estado.getIdEstado());
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing estado was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
