@@ -201,7 +201,7 @@ public class TabSubproyectos implements ITabController{
 
             if (confirmed) {
                 try {
-                    SubproyectosDAO.eliminarSubproyecto(selectedSubproyecto.getId());
+                    SubproyectosDAO.eliminarSubproyecto(selectedSubproyecto);
                 } catch (SQLException e) {
                     handleSqlException(e);
                 }

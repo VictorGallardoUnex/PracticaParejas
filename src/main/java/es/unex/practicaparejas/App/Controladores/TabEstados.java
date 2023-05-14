@@ -77,7 +77,6 @@ public class TabEstados implements ITabController {
         }
     }
 
-    @Override
     public void aplicarFiltro() {
         if (filterInput.getText().isEmpty()) {
             ((FilteredList<Estado>) estadosTableView.getItems()).setPredicate(estado -> true);
